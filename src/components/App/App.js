@@ -61,9 +61,9 @@ class App extends Component {
     return Promise.all(unresolvedPromises)
   }
 
-  pickRandomFilm = (filmArray) => {
+  getRandomFilmIndex = (filmArray) => {
     let index = Math.floor((Math.random() * filmArray.length));
-    return filmArray[index];
+    return index;
   }
 
   componentDidMount = async () => {
@@ -71,7 +71,7 @@ class App extends Component {
     const response = await fetch(url)
     const result = await response.json();
     const films = await result.results;
-    const filmToShow = await this.pickRandomFilm(films);
+    const filmToShow = await films[this.getRandomFilmIndex(films)];
     this.setState({films, filmToShow});
     this.fetchPeople();
   }
