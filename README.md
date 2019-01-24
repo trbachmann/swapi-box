@@ -28,6 +28,6 @@ Run `npm test` from the root directory
 
 ### Wireframes
 
-![Wireframes](./assets/swapi-box-wireframes.jpg)  
+![Wireframes](./public/assets/swapi-box-wireframes.jpg)  
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

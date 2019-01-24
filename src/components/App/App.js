@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.scss';
+import Navigation from '../Navigation/Navigation';
+import { FilmScroll } from '../FilmScroll/FilmScroll';
+
 
 class App extends Component {
   constructor() {
@@ -78,11 +81,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="app">
         <header className="App-header">
         <h1>SWAPI BOX</h1>
+        <Navigation />
         </header>
-        <p>{this.state.filmToShow.opening_crawl}</p>
+        <FilmScroll film={this.state.filmToShow}/>
       </div>
     );
   }
