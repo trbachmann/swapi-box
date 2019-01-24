@@ -32,3 +32,7 @@ it('should choose a random film index', () => {
   const filmIndex = wrapper.instance().getRandomFilmIndex(mockFilms);
   expect(filmIndex).toBeLessThanOrEqual(mockFilms.length);
 });
+
+it('should update category', () => {
+
+});

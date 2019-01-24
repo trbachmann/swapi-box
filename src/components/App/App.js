@@ -13,22 +13,23 @@ class App extends Component {
       planets: [],
       vehicles: [],
       favorites: [],
-      filmToShow: ''
+      filmToShow: '',
+      category: ''
     }
   }
 
   fetchPeople = async () => {
     let people = [];
 
-    for (let i = 1; i < 10; i++) {
+    // for (let i = 1; i < 10; i++) {
       try {
-        const response = await fetch(`https://swapi.co/api/people/?page=${i}`);
+        const response = await fetch(`https://swapi.co/api/people/`);
         const result = await response.json();
         people.push(...result.results)
       } catch (error) {
         console.log(error);
       }
-    }
+    // }
 
     const peopleWithWorldInfo = await this.fetchWorldInfo(people);
     const peopleWithSpeciesAndWorldInfo = await this.fetchSpeciesInfo(peopleWithWorldInfo);
@@ -80,12 +81,17 @@ class App extends Component {
     this.fetchPeople();
   }
 
+  updateCategory = (category) => {
+    this.setState({category});
+  }
+
   render() {
+    let { favorites } = this.state;
     return (
       <div className="app">
         <header className="App-header">
         <h1>SWAPI BOX</h1>
-        <Navigation />
+        <Navigation updateCategory={this.updateCategory} favorites={favorites.length}/>
         </header>
         { this.state.filmToShow !== '' && <FilmScroll film={this.state.filmToShow}/> }
       </div>

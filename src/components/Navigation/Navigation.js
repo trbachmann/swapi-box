@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import './Navigation.scss';
 
 class Navigation extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {}
   }
 
   render() {
+    let { updateCategory, favorites } = this.props
     return(
       <div className="navigation">
-        <button>People</button>
-        <button>Planets</button>
-        <button>Vehicles</button>
-        <button>Favorite</button>
+        <button onClick={() => updateCategory('people')}>People</button>
+        <button onClick={() => updateCategory('planets')}>Planets</button>
+        <button onClick={() => updateCategory('vehicles')}>Vehicles</button>
+        <button onClick={() => updateCategory('favorites')}>View {favorites} Favorite</button>
       </div>
     )
   }
