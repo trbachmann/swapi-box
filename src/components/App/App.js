@@ -32,7 +32,8 @@ class App extends Component {
 
     const peopleWithWorldInfo = await this.fetchWorldInfo(people);
     const peopleWithSpeciesAndWorldInfo = await this.fetchSpeciesInfo(peopleWithWorldInfo);
-    this.setState({ people: peopleWithSpeciesAndWorldInfo});
+    people = peopleWithSpeciesAndWorldInfo;
+    this.setState({ people });
   }
 
   fetchWorldInfo = (peopleArray) => {
@@ -42,7 +43,8 @@ class App extends Component {
       return {
         ...person,
         homeworld: result.name,
-        population: result.population
+        population: result.population,
+        speciesUrls: person.species
       }
     });
     return Promise.all(unresolvedPromises)
@@ -50,8 +52,8 @@ class App extends Component {
 
   fetchSpeciesInfo = (peopleArray) => {
     const unresolvedPromises = peopleArray.map(async (person) => {
-      if (person.species.length > 0) {
-        const response = await fetch(person.species);
+      if (person.speciesUrls.length > 0) {
+        const response = await fetch(person.speciesUrls);
         const result = await response.json();
         return ({ ...person, species: result.name })
       } else {
@@ -70,11 +72,10 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    const url = 'https://swapi.co/api/films';
-    const response = await fetch(url)
+    const response = await fetch('https://swapi.co/api/films')
     const result = await response.json();
     const films = await result.results;
-    const filmToShow = await films[this.getRandomFilmIndex(films)];
+    const filmToShow = films[this.getRandomFilmIndex(films)];
     this.setState({films, filmToShow});
     this.fetchPeople();
   }
