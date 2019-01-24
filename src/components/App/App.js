@@ -86,7 +86,7 @@ class App extends Component {
         <h1>SWAPI BOX</h1>
         <Navigation />
         </header>
-        <FilmScroll film={this.state.filmToShow}/>
+        { this.state.filmToShow !== '' && <FilmScroll film={this.state.filmToShow}/> }
       </div>
     );
   }
