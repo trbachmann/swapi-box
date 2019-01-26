@@ -31,7 +31,7 @@ class App extends Component {
       people = peopleWithSpeciesAndWorldInfo;
       this.setState({ people });
     } catch (error) {
-      this.setState({errorStatus: error});
+      this.setState({ errorStatus: error });
     }
 
   }
@@ -44,7 +44,17 @@ class App extends Component {
       this.setState({ errorStatus: error });
     }
   }
-  
+
+  getPlanets = async () => {
+    try {
+      const planetData = await fetchSWData('https://swapi.co/api/planets');
+      const cleanPlanets = await Helpers.cleanPlanetData(planetData.results);
+      this.setState({ planets: cleanPlanets})
+    } catch (error) {
+      this.setState({ errorStatus: error })
+    }
+  }
+
   getVehicles = async () => {
     try {
       const vehicleData = await fetchSWData('https://swapi.co/api/vehicles');
@@ -59,6 +69,7 @@ class App extends Component {
     this.getFilm();
     this.getPeople();
     this.getVehicles();
+    this.getPlanets();
   }
 
   updateCategory = (category) => {
