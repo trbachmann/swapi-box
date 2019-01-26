@@ -1,8 +1,18 @@
 import { fetchSWData } from "../api/apicalls";
 
+export const cleanVehicleData = (vehicles) => {
+  return vehicles.map(vehicle => {
+    return {
+      name: vehicle.name,
+      model: vehicle.model,
+      vehicle_class: vehicle.vehicle_class,
+      passengers: vehicle.passengers
+    }
+  });
+}
 
 export const cleanPeopleData = (people) => {
-  const updatedPeople = people.map(person => {
+  return people.map(person => {
     return {
       name: person.name,
       created: person.created,
@@ -12,8 +22,6 @@ export const cleanPeopleData = (people) => {
       type: 'person',
     }
   });
-  console.log(updatedPeople)
-  return updatedPeople;
 }
 export const addHomeWorldInfo = (people) => {
   const peopleWithWorldInfo = people.map(async (person) => {

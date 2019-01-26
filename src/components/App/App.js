@@ -47,10 +47,11 @@ class App extends Component {
   
   getVehicles = async () => {
     try {
-      const vehicles = await fetchSWData('https://swapi.co/api/vehicles');
-      this.setState({vehicles});
+      const vehicleData = await fetchSWData('https://swapi.co/api/vehicles');
+      const vehicles = await Helpers.cleanVehicleData(vehicleData.results);
+      this.setState({ vehicles });
     } catch (error) {
-      this.setState({errorStatus: error});
+      this.setState({ errorStatus: error });
     }
   }
 
