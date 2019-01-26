@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../styles/main.scss';
+import '../../main.scss';
 import Navigation from '../Navigation/Navigation';
 import { FilmScroll } from '../FilmScroll/FilmScroll';
 import { fetchSWData } from '../api/apicalls';
