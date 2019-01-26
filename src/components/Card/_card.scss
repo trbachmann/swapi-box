@@ -1,0 +1,24 @@
+.card {
+  border-radius: 15px;
+  background: rgba(196, 196, 196, 0.31);
+  height: 250px;
+  padding: .7em;
+  text-align: center;
+
+  p {
+  color: white;
+  }
+
+  button {
+  color: $yellow;
+  font-size: 1em;
+  margin: auto;
+  border: solid $yellow 2px;
+  }
+}
+
+h3 {
+  color: $yellow;
+}
+
+

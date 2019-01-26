@@ -3,11 +3,10 @@ import Card from '../Card/Card';
 
 export const Display = ({data, category}) => {
     let cards = data.map(item => {
-      return <Card {...item} category={category}/>
+      return <Card {...item} category={category} key={data.created}/>
     })
-    console.log(data)
     return(
-      <div>
+      <div className="card-display">
         {cards}
       </div>
     )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Navigation.scss';
+import './_navigation.scss';
 
 class Navigation extends Component {
   constructor(props) {

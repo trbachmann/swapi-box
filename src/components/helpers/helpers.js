@@ -6,6 +6,7 @@ export const addHomeWorldInfo = (people) => {
       const planetInfo = await fetchSWData(person.homeworld);
       return {
         ...person,
+        type: 'people',
         homeworld: planetInfo.name,
         population: planetInfo.population,
       }

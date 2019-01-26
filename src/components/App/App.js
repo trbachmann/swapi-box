@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.scss';
+import '../../styles/main.scss';
 import Navigation from '../Navigation/Navigation';
 import { FilmScroll } from '../FilmScroll/FilmScroll';
 import { fetchSWData } from '../api/apicalls';
@@ -62,8 +62,10 @@ class App extends Component {
         <h1>SWAPI BOX</h1>
         <Navigation updateCategory={this.updateCategory} favorites={favorites.length}/>
         </header>
-        { this.state.filmToShow !== '' && <FilmScroll film={this.state.filmToShow}/> }
-        { this.state.category !== '' && <Display data={this.state[category]} category={category}/>}
+        <main>
+          { this.state.filmToShow !== '' && <FilmScroll film={this.state.filmToShow}/> }
+          { this.state.category !== '' && <Display data={this.state[category]} category={category}/>}
+        </main>
       </div>
     );
   }

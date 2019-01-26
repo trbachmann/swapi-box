@@ -1,5 +1,4 @@
 import React from 'react';
-import './FilmScroll.scss';
 
 export const FilmScroll = (props) => {
   return(
