@@ -1,6 +1,5 @@
 import React from 'react';
 import './FilmScroll.scss';
-import { timeout } from 'q';
 
 export const FilmScroll = (props) => {
   return(
