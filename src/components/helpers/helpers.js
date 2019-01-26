@@ -60,10 +60,19 @@ export const selectFilm = async () => {
   try {
     const films = await fetchSWData('https://swapi.co/api/films');
     let index = await getRandomFilmIndex(films.results)
-    filmToShow = await films.results[index];
+    const film = await films.results[index];
+    filmToShow = cleanFilmData(film);
     return filmToShow;
   } catch (error) {
     throw error;
+  }
+}
+
+export const cleanFilmData = (film) => {
+  return {
+    title: film.title,
+    opening_crawl: film.opening_crawl,
+    release_date: film.release_date
   }
 }
 

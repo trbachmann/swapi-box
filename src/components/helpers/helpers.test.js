@@ -106,6 +106,16 @@ describe('Helpers', () => {
     });
   });
 
+  describe('cleanFilmData', () => {
+    let mockFilm = { opening_crawl: 'Lorem Ipsum', title: 'Empire Strike Back', release_date: '1995', created: 'zxkasdjfkld00999', actors: ['luke', 'han', 'r2d2'] };
+    
+    it('should return film with the correct paramaters', () => {
+      const expected = { opening_crawl: 'Lorem Ipsum', title: 'Empire Strike Back', release_date: '1995' };
+      const result = Helper.cleanFilmData(mockFilm);
+      expect(result).toEqual(expected);
+    });
+  });
+
   describe('selectFilm', () => {
     let mockFilms = [{ opening_crawl: 'Lorem Ipsum', title: 'Empire Strike Back', release_date: '1995' }, { opening_crawl: 'Lorem Ipsum', title: 'Empire Strike Back Again', release_date: '1996' }, { opening_crawl: 'Lorem Ipsum', title: 'Empire Strike Back 4', release_date: '1975' }];
     let mockFilmData = {results: mockFilms};
@@ -120,7 +130,7 @@ describe('Helpers', () => {
 
     it('should return a film', async () => {
       const result = await Helper.selectFilm();
-      expect(mockFilms).toContain(result);
+      expect(mockFilms).toContainEqual(result);
     });
 
     it('should throw an error if something is not okay with the fetched data', async () => {
