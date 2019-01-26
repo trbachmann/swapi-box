@@ -1,13 +1,27 @@
 import { fetchSWData } from "../api/apicalls";
 
+
+export const cleanPeopleData = (people) => {
+  const updatedPeople = people.map(person => {
+    return {
+      name: person.name,
+      created: person.created,
+      species: person.species,
+      url: person.url,
+      homeworld: person.homeworld,
+      type: 'person',
+    }
+  });
+  console.log(updatedPeople)
+  return updatedPeople;
+}
 export const addHomeWorldInfo = (people) => {
   const peopleWithWorldInfo = people.map(async (person) => {
     try {
       const planetInfo = await fetchSWData(person.homeworld);
       return {
         ...person,
-        type: 'people',
-        homeworld: planetInfo.name,
+        homeworld_name: planetInfo.name,
         population: planetInfo.population,
       }
     } catch(error) {
