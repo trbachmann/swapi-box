@@ -2,83 +2,52 @@ import React, { Component } from 'react';
 import './App.scss';
 import Navigation from '../Navigation/Navigation';
 import { FilmScroll } from '../FilmScroll/FilmScroll';
-
+import { fetchSWData } from '../api/apicalls';
+import { addHomeWorldInfo, addSpeciesInfo, selectFilm } from '../helpers/helpers';
+import { Display } from '../Display/Display';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      films: [],
       people: [],
-      planets: [],
+      planets: [], 
       vehicles: [],
       favorites: [],
       filmToShow: '',
-      category: ''
+      category: '',
+      errorStatus: ''
     }
   }
 
-  fetchPeople = async () => {
+  getPeople = async () => {
     let people = [];
 
-    // for (let i = 1; i < 10; i++) {
-      try {
-        const response = await fetch(`https://swapi.co/api/people/`);
-        const result = await response.json();
-        people.push(...result.results)
-      } catch (error) {
-        console.log(error);
-      }
-    // }
+    try {
+      const peopleInfo = await fetchSWData(`https://swapi.co/api/people/`);
+      people.push(...peopleInfo.results);
+      const peopleWithWorldInfo = await addHomeWorldInfo(people);
+      const peopleWithSpeciesAndWorldInfo = await addSpeciesInfo(peopleWithWorldInfo);
+      people = peopleWithSpeciesAndWorldInfo;
+      this.setState({ people });
+    } catch (error) {
+      this.setState({errorStatus: error});
+    }
 
-    const peopleWithWorldInfo = await this.fetchWorldInfo(people);
-    const peopleWithSpeciesAndWorldInfo = await this.fetchSpeciesInfo(peopleWithWorldInfo);
-    people = peopleWithSpeciesAndWorldInfo;
-    this.setState({ people });
   }
 
-  fetchWorldInfo = (peopleArray) => {
-    const unresolvedPromises = peopleArray.map(async (person) => {
-      const response = await fetch(person.homeworld);
-      const result = await response.json();
-      return {
-        ...person,
-        homeworld: result.name,
-        population: result.population,
-        speciesUrls: person.species
-      }
-    });
-    return Promise.all(unresolvedPromises)
+  getFilm = async () => {
+    try {
+      const filmToShow = await selectFilm();
+      await this.setState({ filmToShow });
+    } catch(error) {
+      this.setState({ errorStatus: error });
+    }
   }
 
-  fetchSpeciesInfo = (peopleArray) => {
-    const unresolvedPromises = peopleArray.map(async (person) => {
-      if (person.speciesUrls.length > 0) {
-        const response = await fetch(person.speciesUrls);
-        const result = await response.json();
-        return ({ ...person, species: result.name })
-      } else {
-        return ({
-          ...person,
-          species: 'unknown'
-        })
-      }
-    });
-    return Promise.all(unresolvedPromises)
-  }
-
-  getRandomFilmIndex = (filmArray) => {
-    let index = Math.floor((Math.random() * filmArray.length));
-    return index;
-  }
-
-  componentDidMount = async () => {
-    const response = await fetch('https://swapi.co/api/films')
-    const result = await response.json();
-    const films = await result.results;
-    const filmToShow = films[this.getRandomFilmIndex(films)];
-    this.setState({films, filmToShow});
-    this.fetchPeople();
+  componentDidMount = () => {
+    this.getFilm();
+    this.getPeople();
   }
 
   updateCategory = (category) => {
@@ -86,7 +55,7 @@ class App extends Component {
   }
 
   render() {
-    let { favorites } = this.state;
+    let { favorites, category } = this.state;
     return (
       <div className="app">
         <header className="App-header">
@@ -94,6 +63,7 @@ class App extends Component {
         <Navigation updateCategory={this.updateCategory} favorites={favorites.length}/>
         </header>
         { this.state.filmToShow !== '' && <FilmScroll film={this.state.filmToShow}/> }
+        { this.state.category !== '' && <Display data={this.state[category]} category={category}/>}
       </div>
     );
   }
