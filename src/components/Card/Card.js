@@ -1,51 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Card extends Component {
-  constructor(props) {
-    super(props)
+export const Card = ({item, category}) => {
+  let card;
+  switch(item.type) {
+    case 'people':
+      card = <div>
+        <h3>{item.name}</h3>
+        <p>Homeworld: {item.homeworld}</p>
+        <p>Species: {item.species_name}</p>
+        <p>Population: {item.population}</p>
+        <button>Add to Favorites</button>
+      </div>;
+      break;
+    case 'planets':
+      card = <div>
+        <h3>Name</h3>
+        <p>Terrain: </p>
+        <p>Population: </p>
+        <p>Climate:</p>
+        <p>Residents: </p>
+        <button>Add to Favorites</button>
+      </div>;
+      break;
+    case 'vehicles':
+      card = <div>
+        <h3>Name</h3>
+        <p>Model: </p>
+        <p>Class: </p>
+        <p>Number of Passengers:</p>
+        <button>Add to Favorites</button>
+      </div>;
+      break;
+    default: 
+      card = <h2>Sorry there are no cards for your selection. Please choose a different category.</h2>;
   }
-
-  render () {
-    console.log(this.props);
-    let card;
-    switch(this.props.type){
-      case 'people':
-        card = <div>
-          <h3>{this.props.name}</h3>
-          <p>Homeworld: {this.props.homeworld}</p>
-          <p>Species: {this.props.species_name}</p>
-          <p>Population: {this.props.population}</p>
-          <button>Add to Favorites</button>
-        </div>;
-        break;
-      case 'planets':
-        card = <div>
-          <h3>Name</h3>
-          <p>Terrain: </p>
-          <p>Population: </p>
-          <p>Climate:</p>
-          <p>Residents: </p>
-          <button>Add to Favorites</button>
-        </div>;
-        break;
-      case 'vehicles':
-        card = <div>
-          <h3>Name</h3>
-          <p>Model: </p>
-          <p>Class: </p>
-          <p>Number of Passengers:</p>
-          <button>Add to Favorites</button>
-        </div>;
-        break;
-      default: 
-        card = <h2>Sorry there are no cards for your selection. Please choose a different category.</h2>;
-    }
-    return(
-      <div className='card'>
-        {card}
-      </div>
-    )
-  }
+  return(
+    <div className='card'>
+      {card}
+    </div>
+  )
 }
-
-export default Card;
