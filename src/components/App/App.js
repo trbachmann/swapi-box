@@ -5,6 +5,7 @@ import { FilmScroll } from '../FilmScroll/FilmScroll';
 import { fetchSWData } from '../api/apicalls';
 import { addHomeWorldInfo, addSpeciesInfo, selectFilm } from '../helpers/helpers';
 import { Display } from '../Display/Display';
+import PropTypes from 'prop-types';
 
 class App extends Component {
   constructor() {
@@ -69,6 +70,20 @@ class App extends Component {
       </div>
     );
   }
+}
+
+Navigation.propTypes = {
+  updateCategory: PropTypes.func,
+  favorites: PropTypes.number
+}
+
+FilmScroll.propTypes = {
+  film: PropTypes.object
+}
+
+Display.propTypes = {
+  data: PropTypes.array,
+  category: PropTypes.string
 }
 
 export default App;
