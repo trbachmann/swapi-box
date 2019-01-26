@@ -6,7 +6,7 @@ export const Card = ({item, category}) => {
     case 'people':
       card = <div>
         <h3>{item.name}</h3>
-        <p>Homeworld: {item.homeworld}</p>
+        <p>Homeworld: {item.homeworld_name}</p>
         <p>Species: {item.species_name}</p>
         <p>Population: {item.population}</p>
         <button>Add to Favorites</button>
