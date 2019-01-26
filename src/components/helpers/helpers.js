@@ -89,3 +89,31 @@ export const cleanVehicleData = (vehicles) => {
   });
 }
 
+export const cleanPlanetData = (planets) => {
+  const cleanPlanets = planets.map(async (planet) => {
+    const residentNames = await getResidents(planet.residents);
+    return {
+      name: planet.name,
+      terrain: planet.terrain,
+      population: planet.population,
+      climate: planet.climate,
+      residents: residentNames,
+      type: 'planets',
+    }
+  });
+
+  return Promise.all(cleanPlanets);
+}
+
+export const getResidents = (residentUrls) => {
+  const residentNames = residentUrls.map(async (residentUrl) => {
+    try {
+      const residentData = await fetchSWData(residentUrl);
+      return residentData.name
+    } catch (error) {
+      throw error;
+    }
+  });
+  return Promise.all(residentNames);
+}
+
