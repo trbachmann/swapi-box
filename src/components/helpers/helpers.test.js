@@ -75,4 +75,39 @@ describe('Helpers', () => {
       await expect(Helper.addSpeciesInfo(mockPeople)).rejects.toThrow(expectedError);
     });
   });
+
+  describe('getRandomFilmIndex', () => {
+    it('should get a random index', () => {
+      let mockFilms = [{}, {}, {}, {}, {}, {}, {}];
+      let result = Helper.getRandomFilmIndex(mockFilms);
+      expect(result).toBeLessThan(mockFilms.length);
+    });
+  });
+
+  describe('selectFilm', () => {
+    let mockFilms = [{ opening_crawl: 'Lorem Ipsum', title: 'Empire Strike Back', release_date: '1995' }, { opening_crawl: 'Lorem Ipsum', title: 'Empire Strike Back Again', release_date: '1996' }, { opening_crawl: 'Lorem Ipsum', title: 'Empire Strike Back 4', release_date: '1975' }];
+    let mockFilmData = {results: mockFilms};
+    
+    beforeEach(() => {
+      API.fetchSWData = jest.fn(() => mockFilmData);
+    });
+
+    afterEach(() =>{
+      jest.clearAllMocks();
+    });
+
+    it('should return a film', async () => {
+      const result = await Helper.selectFilm();
+      expect(mockFilms).toContain(result);
+    });
+
+    it('should throw an error if something is not okay with the fetched data', async () => {
+      const expectedError = 'Error fetching, code: 401';
+      API.fetchSWData = jest.fn(() => {
+        throw Error('Error fetching, code: 401')
+      });
+      await expect(Helper.selectFilm()).rejects.toThrow(expectedError);
+    });
+  });
+
 });
