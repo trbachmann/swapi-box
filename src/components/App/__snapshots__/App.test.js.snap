@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should match the snapshot with all data passed in 1`] = `
+exports[`App should match the snapshot with all data passed in 1`] = `
 <div
-  className="App"
+  className="app"
 >
   <header
     className="App-header"
@@ -10,7 +10,10 @@ exports[`should match the snapshot with all data passed in 1`] = `
     <h1>
       SWAPI BOX
     </h1>
+    <Navigation
+      favorites={0}
+      updateCategory={[Function]}
+    />
   </header>
-  <p />
 </div>
 `;
