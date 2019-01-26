@@ -132,4 +132,14 @@ describe('Helpers', () => {
     });
   });
 
+  describe('cleanVehicleData', () => {
+    let mockVehicles = [{ name: '', model: 'sand crawler', vehicle_class: 'digger', passengers: '1', created: '2014-12-10T15:36:25.724000Z', cost_in_credits: "150000", length: "36.8" }, { name: '', model: 'flyer', vehicle_class: 'comfy flyer', passengers: '10', created: '2014-12-10T15:36:25.724000X', cost_in_credits: "150000", length: "36.8" }];
+    
+    it('should return vehicles with the correct parameters', () => {
+      const expected = [{ name: '', model: 'sand crawler', vehicle_class: 'digger', passengers: '1', created: '2014-12-10T15:36:25.724000Z', type: 'vehicles' }, { name: '', model: 'flyer', vehicle_class: 'comfy flyer', passengers: '10', created: '2014-12-10T15:36:25.724000X', type: 'vehicles' }]
+      const result = Helper.cleanVehicleData(mockVehicles);
+      expect(result).toEqual(expected);
+    });
+  });
+  
 });

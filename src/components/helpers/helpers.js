@@ -1,18 +1,5 @@
 import { fetchSWData } from "../api/apicalls";
 
-export const cleanVehicleData = (vehicles) => {
-  return vehicles.map(vehicle => {
-    return {
-      name: vehicle.name,
-      created: vehicle.created,
-      model: vehicle.model,
-      vehicle_class: vehicle.vehicle_class,
-      passengers: vehicle.passengers,
-      type: 'vehicles',
-    }
-  });
-}
-
 export const cleanPeopleData = (people) => {
   return people.map(person => {
     return {
@@ -78,5 +65,18 @@ export const selectFilm = async () => {
   } catch (error) {
     throw error;
   }
+}
+
+export const cleanVehicleData = (vehicles) => {
+  return vehicles.map(vehicle => {
+    return {
+      name: vehicle.name,
+      created: vehicle.created,
+      model: vehicle.model,
+      vehicle_class: vehicle.vehicle_class,
+      passengers: vehicle.passengers,
+      type: 'vehicles',
+    }
+  });
 }
 
