@@ -3,7 +3,7 @@ import '../../styles/main.scss';
 import Navigation from '../Navigation/Navigation';
 import { FilmScroll } from '../FilmScroll/FilmScroll';
 import { fetchSWData } from '../api/apicalls';
-import { addHomeWorldInfo, addSpeciesInfo, selectFilm } from '../helpers/helpers';
+import * as Helpers from '../helpers/helpers';
 import { Display } from '../Display/Display';
 import PropTypes from 'prop-types';
 
@@ -22,13 +22,12 @@ class App extends Component {
   }
 
   getPeople = async () => {
-    let people = [];
-
     try {
+      let people = [];
       const peopleInfo = await fetchSWData(`https://swapi.co/api/people/`);
-      people.push(...peopleInfo.results);
-      const peopleWithWorldInfo = await addHomeWorldInfo(people);
-      const peopleWithSpeciesAndWorldInfo = await addSpeciesInfo(peopleWithWorldInfo);
+      people = Helpers.cleanPeopleData(peopleInfo.results);
+      const peopleWithWorldInfo = await Helpers.addHomeWorldInfo(people);
+      const peopleWithSpeciesAndWorldInfo = await Helpers.addSpeciesInfo(peopleWithWorldInfo);
       people = peopleWithSpeciesAndWorldInfo;
       this.setState({ people });
     } catch (error) {
@@ -39,16 +38,26 @@ class App extends Component {
 
   getFilm = async () => {
     try {
-      const filmToShow = await selectFilm();
+      const filmToShow = await Helpers.selectFilm();
       await this.setState({ filmToShow });
     } catch(error) {
       this.setState({ errorStatus: error });
+    }
+  }
+  
+  getVehicles = async () => {
+    try {
+      const vehicles = await fetchSWData('https://swapi.co/api/vehicles');
+      this.setState({vehicles});
+    } catch (error) {
+      this.setState({errorStatus: error});
     }
   }
 
   componentDidMount = () => {
     this.getFilm();
     this.getPeople();
+    this.getVehicles();
   }
 
   updateCategory = (category) => {
