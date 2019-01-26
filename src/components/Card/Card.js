@@ -24,10 +24,10 @@ export const Card = ({item, category}) => {
       break;
     case 'vehicles':
       card = <div>
-        <h3>Name</h3>
-        <p>Model: </p>
-        <p>Class: </p>
-        <p>Number of Passengers:</p>
+        <h3>{item.name}</h3>
+        <p>Model: {item.model}</p>
+        <p>Class: {item.vehicle_class}</p>
+        <p>Number of Passengers: {item.passengers}</p>
         <button>Add to Favorites</button>
       </div>;
       break;

@@ -4,9 +4,11 @@ export const cleanVehicleData = (vehicles) => {
   return vehicles.map(vehicle => {
     return {
       name: vehicle.name,
+      created: vehicle.created,
       model: vehicle.model,
       vehicle_class: vehicle.vehicle_class,
-      passengers: vehicle.passengers
+      passengers: vehicle.passengers,
+      type: 'vehicles',
     }
   });
 }
@@ -19,7 +21,7 @@ export const cleanPeopleData = (people) => {
       species: person.species,
       url: person.url,
       homeworld: person.homeworld,
-      type: 'person',
+      type: 'people',
     }
   });
 }
