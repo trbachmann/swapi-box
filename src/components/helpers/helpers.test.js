@@ -3,7 +3,7 @@ import * as API from "../api/apicalls";
 
 describe('Helpers', () => {
   let mockUrl = 'https://www.swapi.com./fake';
-  let mockPeople = [{ name: 'Luke Skywalker', homeworld: mockUrl }, { name: 'Leia Skywalker', homeworld: mockUrl }];
+  let mockPeople = [{ name: 'Luke Skywalker', homeworld: mockUrl, species: [mockUrl] }, { name: 'Leia Skywalker', homeworld: mockUrl, species: [mockUrl] }];
 
   describe('addHomeWorldInfo', () => {
     let mockPlanetInfo = {name: 'mars', population: '3890'}
@@ -17,17 +17,18 @@ describe('Helpers', () => {
     })
     
     it('should return people with homeworld and population', async () => {
-      const expected = [{ name: 'Luke Skywalker', homeworld: 'mars', population: '3890', type: 'people' }, { name: 'Leia Skywalker', homeworld: 'mars', population: '3890', type: 'people' }]
+      const expected = [{ name: 'Luke Skywalker', homeworld: 'mars', population: '3890', type: 'people', species:[mockUrl] }, { name: 'Leia Skywalker', homeworld: 'mars', population: '3890', type: 'people', species: [mockUrl] }]
       const result = await Helper.addHomeWorldInfo(mockPeople);
       expect(result).toEqual(expected);
     });
 
     it('should fetch data the correct number of times', () => {
+      let correctNumberOfTimes = mockPeople.length
       Helper.addHomeWorldInfo(mockPeople);
-      expect(API.fetchSWData).toHaveBeenCalledTimes(2);
+      expect(API.fetchSWData).toHaveBeenCalledTimes(correctNumberOfTimes);
     });
 
-    it('should return an error if something is not okay with the fetched data', async () => {
+    it('should throw an error if something is not okay with the fetched data', async () => {
       API.fetchSWData = jest.fn(() => {
         throw Error('Error fetching, code: 401') 
       });
@@ -35,4 +36,43 @@ describe('Helpers', () => {
       await expect(Helper.addHomeWorldInfo(mockPeople)).rejects.toThrow(expectedError);
     });
   }); 
+
+  describe('addSpeciesInfo', () => {
+    let mockSpeciesInfo = {name: 'robot'};
+
+    beforeEach(() => {
+      API.fetchSWData = jest.fn(() => mockSpeciesInfo);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    })
+
+    it('should return people with species name', async () => {
+      const expected = [{ name: 'Luke Skywalker', homeworld: mockUrl, species: [mockUrl], species_name: 'robot' }, { name: 'Leia Skywalker', homeworld: mockUrl, species: [mockUrl], species_name: 'robot' }];
+      const result = await Helper.addSpeciesInfo(mockPeople)
+      expect(result).toEqual(expected);
+    });
+
+    it('should return people with species name unknown if there is no species url', async () => {
+      const mockPersonNoSpecies = [{ name: 'Captain Secret', homeworld: mockUrl, species: [] }];
+      const expected = [{ name: 'Captain Secret', homeworld: mockUrl, species: [], species_name: 'unknown' }];
+      const result = await Helper.addSpeciesInfo(mockPersonNoSpecies);
+      expect(result).toEqual(expected);
+    });
+
+    it('should fetch data the correct number of times', ()=> {
+      let correctNumberOfTimes = mockPeople.length;
+      Helper.addSpeciesInfo(mockPeople);
+      expect(API.fetchSWData).toHaveBeenCalledTimes(correctNumberOfTimes);
+    });
+
+    it('should throw an error is something is not okay with the fetch data', async () => {
+      API.fetchSWData = jest.fn(() => {
+        throw Error('Error fetching, code: 401')
+      });
+      const expectedError = 'Error fetching, code: 401';
+      await expect(Helper.addSpeciesInfo(mockPeople)).rejects.toThrow(expectedError);
+    });
+  });
 });
