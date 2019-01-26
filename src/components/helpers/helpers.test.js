@@ -2,13 +2,28 @@ import * as Helper from './helpers';
 import * as API from "../api/apicalls";
 
 describe('Helpers', () => {
-  let mockUrl = 'https://www.swapi.com./fake';
-  let mockPeople = [{ name: 'Luke Skywalker', homeworld: mockUrl, species: [mockUrl] }, { name: 'Leia Skywalker', homeworld: mockUrl, species: [mockUrl] }];
+  let mockUrl = 'https://www.swapi.co/fake';
+  let mockPeople = [
+    { name: 'Luke Skywalker', homeworld: mockUrl, species: [mockUrl], created: "2014-12-09T13:50:51.644000Z", url: "https://swapi.co/fake1/", eye_color: "blue", birth_year: "19BBY", gender: "male"}, 
+    { name: 'Leia Skywalker', homeworld: mockUrl, species: [mockUrl], created: "2014-12-09T13:50:51.689000Z", url: "https://swapi.co/fake2/", eye_color: "blue", birth_year: "19BBY", gender: "female"}
+  ];
+  
+  describe('cleanPeopleData', () => {
+    it('should return people with the correct params', () => {
+      const expected = [
+        { name: 'Luke Skywalker', homeworld: mockUrl, species: [mockUrl], created: "2014-12-09T13:50:51.644000Z", url: "https://swapi.co/fake1/", type:'people' },
+        { name: 'Leia Skywalker', homeworld: mockUrl, species: [mockUrl], created: "2014-12-09T13:50:51.689000Z", url: "https://swapi.co/fake2/", type: 'people'}
+      ];
+      const result = Helper.cleanPeopleData(mockPeople);
+      expect(result).toEqual(expected);
+    });
+  });
 
   describe('addHomeWorldInfo', () => {
     let mockPlanetInfo = {name: 'mars', population: '3890'}
     
     beforeEach(() => {
+      mockPeople = Helper.cleanPeopleData(mockPeople);
       API.fetchSWData = jest.fn(() => mockPlanetInfo);
     });
     
@@ -17,7 +32,10 @@ describe('Helpers', () => {
     })
     
     it('should return people with homeworld and population', async () => {
-      const expected = [{ name: 'Luke Skywalker', homeworld: 'mars', population: '3890', type: 'people', species:[mockUrl] }, { name: 'Leia Skywalker', homeworld: 'mars', population: '3890', type: 'people', species: [mockUrl] }]
+      const expected = [
+        { name: 'Luke Skywalker', homeworld_name: 'mars', population: '3890', type: 'people', species: [mockUrl], created: "2014-12-09T13:50:51.644000Z", url: "https://swapi.co/fake1/", homeworld: mockUrl }, 
+        { name: 'Leia Skywalker', homeworld_name: 'mars', population: '3890', type: 'people', species: [mockUrl], created: "2014-12-09T13:50:51.689000Z", url: "https://swapi.co/fake2/", homeworld: mockUrl }
+      ]
       const result = await Helper.addHomeWorldInfo(mockPeople);
       expect(result).toEqual(expected);
     });
@@ -41,6 +59,7 @@ describe('Helpers', () => {
     let mockSpeciesInfo = {name: 'robot'};
 
     beforeEach(() => {
+      mockPeople = Helper.cleanPeopleData(mockPeople);
       API.fetchSWData = jest.fn(() => mockSpeciesInfo);
     });
 
@@ -49,7 +68,10 @@ describe('Helpers', () => {
     })
 
     it('should return people with species name', async () => {
-      const expected = [{ name: 'Luke Skywalker', homeworld: mockUrl, species: [mockUrl], species_name: 'robot' }, { name: 'Leia Skywalker', homeworld: mockUrl, species: [mockUrl], species_name: 'robot' }];
+      const expected = [
+        { name: 'Luke Skywalker', species_name: 'robot', type: 'people', species: [mockUrl], created: "2014-12-09T13:50:51.644000Z", url: "https://swapi.co/fake1/", homeworld: mockUrl },
+        { name: 'Leia Skywalker', species_name: 'robot', type: 'people', species: [mockUrl], created: "2014-12-09T13:50:51.689000Z", url: "https://swapi.co/fake2/", homeworld: mockUrl }
+      ];
       const result = await Helper.addSpeciesInfo(mockPeople)
       expect(result).toEqual(expected);
     });
