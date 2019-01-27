@@ -14,11 +14,16 @@ export const Card = ({item, category}) => {
       break;
     case 'planets':
       card = <div>
-        <h3>Name</h3>
-        <p>Terrain: </p>
-        <p>Population: </p>
-        <p>Climate:</p>
+        <h3>{item.name}</h3>
+        <p>Terrain: {item.terrain}</p>
+        <p>Population: {item.population}</p>
+        <p>Climate: {item.climate}</p>
         <p>Residents: </p>
+        <ul>
+          {item.residents.map(resident => {
+            return <li key={resident}>{resident}</li>
+          })}
+        </ul>
         <button>Add to Favorites</button>
       </div>;
       break;
