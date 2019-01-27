@@ -6,11 +6,13 @@ import { fetchSWData } from '../api/apicalls';
 import * as Helpers from '../helpers/helpers';
 import { Display } from '../Display/Display';
 import PropTypes from 'prop-types';
+  import ReactLoading from 'react-loading';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      isLoading: true,
       people: [],
       planets: [], 
       vehicles: [],
@@ -39,7 +41,7 @@ class App extends Component {
   getFilm = async () => {
     try {
       const filmToShow = await Helpers.selectFilm();
-      await this.setState({ filmToShow });
+      await this.setState({ filmToShow, isLoading: false });
     } catch(error) {
       this.setState({ errorStatus: error });
     }
@@ -73,10 +75,14 @@ class App extends Component {
     if (this.state[category].length > 0) {
       this.setState({ category });
     } else {
+      this.loading();
       this.getData(category);
     }
   }
-
+ 
+  loading = () => {
+    this.setState({isLoading: true})
+  }
   getData = (category) => {
     switch(category) {
       case 'people':
@@ -91,7 +97,7 @@ class App extends Component {
       default:
         this.setState({ category: '' });
       }
-      this.setState({ category });
+      this.setState({ category, isLoading: false });
   }
 
   render() {
@@ -104,7 +110,8 @@ class App extends Component {
         </header>
         <main>
           { this.state.filmToShow !== '' && <FilmScroll film={this.state.filmToShow}/> }
-          { this.state.category !== '' && <Display data={this.state[category]} category={category}/>}
+          { this.state.isLoading && <ReactLoading className='loader' type={'cylon'} color={'#FFE300'} height={'20%'} width={'30%'} />}
+          { this.state.category !== '' && <Display data={this.state[category]} category={category} favorites={favorites}/>}
         </main>
       </div>
     );
@@ -122,7 +129,8 @@ FilmScroll.propTypes = {
 
 Display.propTypes = {
   data: PropTypes.array,
-  category: PropTypes.string
+  category: PropTypes.string,
+  favorites: PropTypes.array
 }
 
 export default App;

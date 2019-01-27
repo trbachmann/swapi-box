@@ -7,7 +7,7 @@ export const Card = ({item, category}) => {
       card = <div className='inner-card'>
         <div className='card-title'>
           <h3>{item.name}</h3>
-          <i class="fas fa-star"></i>
+          <i className="fas fa-star"></i>
         </div>
         <p>Homeworld: {item.homeworld_name}</p>
         <p>Species: {item.species_name}</p>
@@ -18,7 +18,7 @@ export const Card = ({item, category}) => {
       card = <div className='inner-card'>
         <div className='card-title'>
           <h3>{item.name}</h3>
-          <i class="fas fa-star"></i>
+          <i classNamwe="fas fa-star"></i>
         </div>
         <p>Terrain: {item.terrain}</p>
         <p>Population: {item.population}</p>
@@ -35,7 +35,7 @@ export const Card = ({item, category}) => {
       card = <div className='inner-card'>
         <div className='card-title'>
           <h3>{item.name}</h3>
-          <i class="fas fa-star"></i>
+          <i className="fas fa-star"></i>
         </div>
         <p>Model: {item.model}</p>
         <p>Class: {item.vehicle_class}</p>
