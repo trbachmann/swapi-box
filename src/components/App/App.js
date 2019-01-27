@@ -67,13 +67,33 @@ class App extends Component {
 
   componentDidMount = () => {
     this.getFilm();
-    this.getPeople();
-    this.getVehicles();
-    this.getPlanets();
   }
 
-  updateCategory = (category) => {
-    this.setState({category});
+  handleChosenCategory = (category) => {
+    if (this.state[category].length > 0) {
+      this.setState({ category });
+    } else {
+      console.log('got to else')
+      this.getData(category);
+    }
+  }
+
+  getData = (category) => {
+    console.log('got to switch with:', category)
+    switch(category) {
+      case 'people':
+        this.getPeople();
+        break;
+        case 'planets':
+        this.getPlanets();
+        break;
+        case 'vehicles':
+        this.getVehicles();
+        break;
+      default:
+        this.setState({ category: '' });
+      }
+      this.setState({ category });
   }
 
   render() {
@@ -82,7 +102,7 @@ class App extends Component {
       <div className="app">
         <header className="App-header">
         <h1>SWAPI BOX</h1>
-        <Navigation updateCategory={this.updateCategory} favorites={favorites.length}/>
+        <Navigation handleChosenCategory={this.handleChosenCategory} favorites={favorites.length}/>
         </header>
         <main>
           { this.state.filmToShow !== '' && <FilmScroll film={this.state.filmToShow}/> }
@@ -94,7 +114,7 @@ class App extends Component {
 }
 
 Navigation.propTypes = {
-  updateCategory: PropTypes.func,
+  handleChosenCategory: PropTypes.func,
   favorites: PropTypes.number
 }
 
