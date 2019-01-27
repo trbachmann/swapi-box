@@ -34,11 +34,19 @@
     overflow-y: scroll;
   }
 
-  .fa-star {
+  .favorite-false {
     color: white;
     margin-left: auto;
     &:hover {
       color: $yellow;
+    }
+  }
+
+    .favorite-true {
+    color: $yellow;
+    margin-left: auto;
+    &:hover {
+      color: white;
     }
   }
 }

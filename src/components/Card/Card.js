@@ -1,13 +1,13 @@
 import React from 'react';
 
-export const Card = ({item, category}) => {
+export const Card = ({item, handleFavorite, isFavorite}) => {
   let card;
   switch(item.type) {
     case 'people':
       card = <div className='inner-card'>
         <div className='card-title'>
           <h3>{item.name}</h3>
-          <i className="fas fa-star"></i>
+          <i className={"fas fa-star favorite-" + isFavorite } onClick={() => { handleFavorite(item.created) }}></i>
         </div>
         <p>Homeworld: {item.homeworld_name}</p>
         <p>Species: {item.species_name}</p>
@@ -18,7 +18,7 @@ export const Card = ({item, category}) => {
       card = <div className='inner-card'>
         <div className='card-title'>
           <h3>{item.name}</h3>
-          <i classNamwe="fas fa-star"></i>
+          <i className={"fas fa-star favorite-" + isFavorite} onClick={() => { handleFavorite(item.created) }}></i>
         </div>
         <p>Terrain: {item.terrain}</p>
         <p>Population: {item.population}</p>
@@ -35,7 +35,7 @@ export const Card = ({item, category}) => {
       card = <div className='inner-card'>
         <div className='card-title'>
           <h3>{item.name}</h3>
-          <i className="fas fa-star"></i>
+          <i className={"fas fa-star favorite-" + isFavorite} onClick={() => { handleFavorite(item.created) }}></i>
         </div>
         <p>Model: {item.model}</p>
         <p>Class: {item.vehicle_class}</p>
