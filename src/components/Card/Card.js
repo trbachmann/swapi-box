@@ -4,17 +4,22 @@ export const Card = ({item, category}) => {
   let card;
   switch(item.type) {
     case 'people':
-      card = <div>
-        <h3>{item.name}</h3>
+      card = <div className='inner-card'>
+        <div className='card-title'>
+          <h3>{item.name}</h3>
+          <i class="fas fa-star"></i>
+        </div>
         <p>Homeworld: {item.homeworld_name}</p>
         <p>Species: {item.species_name}</p>
         <p>Population: {item.population}</p>
-        <button>Add to Favorites</button>
       </div>;
       break;
     case 'planets':
-      card = <div>
-        <h3>{item.name}</h3>
+      card = <div className='inner-card'>
+        <div className='card-title'>
+          <h3>{item.name}</h3>
+          <i class="fas fa-star"></i>
+        </div>
         <p>Terrain: {item.terrain}</p>
         <p>Population: {item.population}</p>
         <p>Climate: {item.climate}</p>
@@ -24,16 +29,17 @@ export const Card = ({item, category}) => {
             return <li key={resident}>{resident}</li>
           })}
         </ul>
-        <button>Add to Favorites</button>
       </div>;
       break;
     case 'vehicles':
-      card = <div>
-        <h3>{item.name}</h3>
+      card = <div className='inner-card'>
+        <div className='card-title'>
+          <h3>{item.name}</h3>
+          <i class="fas fa-star"></i>
+        </div>
         <p>Model: {item.model}</p>
         <p>Class: {item.vehicle_class}</p>
         <p>Number of Passengers: {item.passengers}</p>
-        <button>Add to Favorites</button>
       </div>;
       break;
     default: 

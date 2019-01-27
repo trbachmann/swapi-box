@@ -2,18 +2,30 @@
   border-radius: 15px;
   background: rgba(196, 196, 196, 0.31);
   height: 350px;
-  padding: .7em;
-  text-align: center;
+
+  .inner-card {
+  margin: 1.2em;
+  }
+  
+  .card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h3 {
+    color: $yellow;
+  }
 
   p {
-  color: white;
+    color: white;
   }
 
   button {
-  color: $yellow;
-  font-size: 1em;
-  margin: auto;
-  border: solid $yellow 2px;
+    color: $yellow;
+    font-size: 1em;
+    margin: auto;
+    border: solid $yellow 2px;
   }
 
   ul {
@@ -21,10 +33,16 @@
     height: 2.4em;
     overflow-y: scroll;
   }
+
+  .fa-star {
+    color: white;
+    margin-left: auto;
+    &:hover {
+      color: $yellow;
+    }
+  }
 }
 
-h3 {
-  color: $yellow;
-}
+
 
 
