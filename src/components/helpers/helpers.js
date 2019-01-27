@@ -91,14 +91,20 @@ export const cleanVehicleData = (vehicles) => {
 
 export const cleanPlanetData = (planets) => {
   const cleanPlanets = planets.map(async (planet) => {
-    const residentNames = await getResidents(planet.residents);
+    let residentNames;
+    if (planet.residents.length === 0) {
+      residentNames = ['No residents'];
+    } else {
+      residentNames = await getResidents(planet.residents);
+    }
+    
     return {
-      name: planet.name,
-      terrain: planet.terrain,
-      population: planet.population,
-      climate: planet.climate,
-      residents: residentNames,
-      type: 'planets',
+        name: planet.name,
+        terrain: planet.terrain,
+        population: planet.population,
+        climate: planet.climate,
+        residents: residentNames,
+        type: 'planets',
     }
   });
 
