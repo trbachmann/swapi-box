@@ -73,13 +73,11 @@ class App extends Component {
     if (this.state[category].length > 0) {
       this.setState({ category });
     } else {
-      console.log('got to else')
       this.getData(category);
     }
   }
 
   getData = (category) => {
-    console.log('got to switch with:', category)
     switch(category) {
       case 'people':
         this.getPeople();
