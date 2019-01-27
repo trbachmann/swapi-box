@@ -2,10 +2,19 @@ import React from 'react';
 import { Card } from '../Card/Card';
 import PropTypes from 'prop-types';
 
-export const Display = ({data, category}) => {
+export const Display = ({data, favorites, handleFavorite}) => {
     let cards = data.map(item => {
-    return <Card item={item} category={category} key={item.created}/>
+      let isFavorite;
+      
+      if (favorites.includes(item.created)){
+        isFavorite = true;
+      } else {
+        isFavorite = false;
+      }
+
+      return <Card item={item} key={item.created} handleFavorite={handleFavorite} isFavorite={isFavorite}/>
     })
+    
     return(
       <div className="card-display">
         {cards}
@@ -15,5 +24,6 @@ export const Display = ({data, category}) => {
 
 Card.propTypes = {
   item: PropTypes.object,
-  category: PropTypes.string
+  handleFavorite: PropTypes.func,
+  isFavorite: PropTypes.bool
 }
