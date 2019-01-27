@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card should match the snapshot with people data passed in 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="inner-card"
+  >
+    <div
+      className="card-title"
+    >
+      <h3>
+        Han
+      </h3>
+      <i
+        className="fas fa-star favorite-true"
+        onClick={[Function]}
+      />
+    </div>
+    <p>
+      Homeworld: 
+      Alderaan
+    </p>
+    <p>
+      Species: 
+      human
+    </p>
+    <p>
+      Population: 
+      200000
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Card should match the snapshot with people data passed in 2`] = `
+<div
+  className="card"
+>
+  <div
+    className="inner-card"
+  >
+    <div
+      className="card-title"
+    >
+      <h3>
+        Crawler
+      </h3>
+      <i
+        className="fas fa-star favorite-true"
+        onClick={[Function]}
+      />
+    </div>
+    <p>
+      Model: 
+      Digger Crawler
+    </p>
+    <p>
+      Class: 
+    </p>
+    <p>
+      Number of Passengers: 
+      1
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Card should match the snapshot with planet data passed in 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="inner-card"
+  >
+    <div
+      className="card-title"
+    >
+      <h3>
+        Hoth
+      </h3>
+      <i
+        className="fas fa-star favorite-true"
+        onClick={[Function]}
+      />
+    </div>
+    <p>
+      Terrain: 
+      rocky
+    </p>
+    <p>
+      Population: 
+      3200000
+    </p>
+    <p>
+      Climate: 
+      temperate
+    </p>
+    <p>
+      Residents: 
+    </p>
+    <ul>
+      <li
+        key="R2D2"
+      >
+        R2D2
+      </li>
+      <li
+        key="Mark"
+      >
+        Mark
+      </li>
+    </ul>
+  </div>
+</div>
+`;
