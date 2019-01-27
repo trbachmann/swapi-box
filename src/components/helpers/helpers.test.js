@@ -150,6 +150,64 @@ describe('Helpers', () => {
       const result = Helper.cleanVehicleData(mockVehicles);
       expect(result).toEqual(expected);
     });
+    
   });
+
+  describe('getResidents', () => {
+    let mockResident = { name: 'Han Solo'}
+    let mockUrls = [mockUrl, mockUrl];
+    beforeEach(() => {
+      API.fetchSWData = jest.fn(() => mockResident);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should return an array of resident names', async() => {
+      const expected = ['Han Solo', 'Han Solo'];
+      const result = await Helper.getResidents(mockUrls);
+      expect(result).toEqual(expected);
+    });
+
+    it('should fetch data the correct number of times', () => {
+      Helper.getResidents(mockUrls);
+      expect(API.fetchSWData).toHaveBeenCalledTimes(mockUrls.length);
+    })
+  });
+
+  describe('cleanPlanetData', () => {
+    let mockResident = { name: 'Han Solo' }
+    let mockPlanets = [{
+      climate: "temperate",
+      name: "Alderaan",
+      population: "2000000000",
+      residents: [mockUrl],
+      terrain: "grasslands, mountains",
+      residents: [ mockUrl ]
+    }];
+
+    beforeEach(() => {
+      API.fetchSWData = jest.fn(() => mockResident);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should return plantents with the correct parameters', async () => {
+      const expected = [ {
+        climate: "temperate",
+        name: "Alderaan",
+        population: "2000000000",
+        residents: [mockUrl],
+        terrain: "grasslands, mountains",
+        type: 'planets',
+        residents: ['Han Solo']
+      } ];
+      const result = await Helper.cleanPlanetData(mockPlanets);
+      expect(result).toEqual(expected);
+    })
+  })
   
 });
