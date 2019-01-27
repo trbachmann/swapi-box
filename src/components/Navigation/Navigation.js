@@ -8,13 +8,13 @@ class Navigation extends Component {
   }
 
   render() {
-    let { updateCategory, favorites } = this.props
+    let { handleChosenCategory, favorites } = this.props
     return(
       <div className="navigation">
-        <button onClick={() => updateCategory('people')}>People</button>
-        <button onClick={() => updateCategory('planets')}>Planets</button>
-        <button onClick={() => updateCategory('vehicles')}>Vehicles</button>
-        <button onClick={() => updateCategory('favorites')}>View {favorites} Favorite</button>
+        <button onClick={() => handleChosenCategory('people')}>People</button>
+        <button onClick={() => handleChosenCategory('planets')}>Planets</button>
+        <button onClick={() => handleChosenCategory('vehicles')}>Vehicles</button>
+        <button onClick={() => handleChosenCategory('favorites')}>View {favorites} Favorite</button>
       </div>
     )
   }
