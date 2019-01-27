@@ -83,6 +83,7 @@ class App extends Component {
   loading = () => {
     this.setState({isLoading: true})
   }
+
   getData = (category) => {
     switch(category) {
       case 'people':
@@ -100,6 +101,20 @@ class App extends Component {
       this.setState({ category, isLoading: false });
   }
 
+  handleFavorite = (id) => {
+    let favorites;
+    if (this.state.favorites.length === 0) {
+      favorites = [id];
+    } else if (this.state.favorites.includes(id)) {
+      favorites = this.state.favorites.filter( favorite => {
+        return favorite !== id
+      });
+    } else {
+      favorites = [...this.state.favorites, id];
+    }
+    this.setState({ favorites })
+  }
+
   render() {
     let { favorites, category } = this.state;
     return (
@@ -110,8 +125,8 @@ class App extends Component {
         </header>
         <main>
           { this.state.filmToShow !== '' && <FilmScroll film={this.state.filmToShow}/> }
-          { this.state.isLoading && <ReactLoading className='loader' type={'cylon'} color={'#FFE300'} height={'20%'} width={'30%'} />}
-          { this.state.category !== '' && <Display data={this.state[category]} category={category} favorites={favorites}/>}
+          { this.state.isLoading && <ReactLoading className='loader' type={'cylon'} color={'#FFE300'} height={'20%'} width={'30%'} /> }
+          { this.state.category !== '' && <Display data={this.state[category]} favorites={favorites} handleFavorite={this.handleFavorite}/> }
         </main>
       </div>
     );
@@ -129,8 +144,8 @@ FilmScroll.propTypes = {
 
 Display.propTypes = {
   data: PropTypes.array,
-  category: PropTypes.string,
-  favorites: PropTypes.array
+  favorites: PropTypes.array,
+  handleFavorite: PropTypes.func
 }
 
 export default App;
