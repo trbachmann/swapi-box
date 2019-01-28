@@ -41,7 +41,7 @@ class App extends Component {
       default:
         this.setState({ category: '' });
     }
-    this.setState({ category, isLoading: false });
+    this.setState({ category });
   }
   
   getFilm = async () => {
@@ -92,7 +92,6 @@ class App extends Component {
     if (this.state[category].length > 0) {
       this.setState({ category });
     } else {
-      this.setState({isLoading: true})
       this.getData(category);
     }
   }

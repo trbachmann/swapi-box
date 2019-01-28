@@ -112,13 +112,6 @@ describe('App', () => {
       expect(wrapper.state('category')).toEqual(mockCategory);
     });
 
-    it('should set state to loading if there is not anything in state for the category passed through', () => {
-      const wrapper = shallow(<App />);
-      const mockCategory = 'planets';
-      wrapper.instance().handleChosenCategory(mockCategory);
-      expect(wrapper.state('isLoading')).toEqual(false);
-    });
-
     it.skip('should call getData if there is not anything in state for the category passed throug', () => {
 
     });
