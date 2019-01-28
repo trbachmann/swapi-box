@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Display should match the snapshot with all data passed in 1`] = `
+<div
+  className="card-display"
+>
+  <Card
+    handleFavorite={[MockFunction]}
+    isFavorite={false}
+    item={
+      Object {
+        "created": "239D",
+        "homeworld_name": "Alderaan",
+        "name": "Han",
+        "population": "200000",
+        "species_name": "human",
+        "type": "people",
+      }
+    }
+    key="239D"
+  />
+  <Card
+    handleFavorite={[MockFunction]}
+    isFavorite={true}
+    item={
+      Object {
+        "created": "239F",
+        "homeworld_name": "Nabu",
+        "name": "Luke",
+        "population": "502000",
+        "species_name": "human",
+        "type": "people",
+      }
+    }
+    key="239F"
+  />
+</div>
+`;
