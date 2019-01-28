@@ -6,7 +6,7 @@ import { fetchSWData } from '../api/apicalls';
 import * as Helpers from '../helpers/helpers';
 import { Display } from '../Display/Display';
 import PropTypes from 'prop-types';
-  import ReactLoading from 'react-loading';
+import ReactLoading from 'react-loading';
 
 class App extends Component {
   constructor() {
@@ -23,6 +23,36 @@ class App extends Component {
     }
   }
 
+  componentDidMount = () => {
+    this.getFilm();
+  }
+
+  getData = (category) => {
+    switch (category) {
+      case 'people':
+        this.getPeople();
+        break;
+      case 'planets':
+        this.getPlanets();
+        break;
+      case 'vehicles':
+        this.getVehicles();
+        break;
+      default:
+        this.setState({ category: '' });
+    }
+    this.setState({ category, isLoading: false });
+  }
+  
+  getFilm = async () => {
+    try {
+      const filmToShow = await Helpers.selectFilm();
+      await this.setState({ filmToShow, isLoading: false });
+    } catch (error) {
+      this.setState({ errorStatus: error });
+    }
+  }
+
   getPeople = async () => {
     try {
       let people = [];
@@ -36,15 +66,6 @@ class App extends Component {
       this.setState({ errorStatus: error });
     }
 
-  }
-
-  getFilm = async () => {
-    try {
-      const filmToShow = await Helpers.selectFilm();
-      await this.setState({ filmToShow, isLoading: false });
-    } catch(error) {
-      this.setState({ errorStatus: error });
-    }
   }
 
   getPlanets = async () => {
@@ -67,38 +88,13 @@ class App extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.getFilm();
-  }
-
   handleChosenCategory = (category) => {
     if (this.state[category].length > 0) {
       this.setState({ category });
     } else {
-      this.loading();
+      this.setState({isLoading: true})
       this.getData(category);
     }
-  }
- 
-  loading = () => {
-    this.setState({isLoading: true})
-  }
-
-  getData = (category) => {
-    switch(category) {
-      case 'people':
-        this.getPeople();
-        break;
-        case 'planets':
-        this.getPlanets();
-        break;
-        case 'vehicles':
-        this.getVehicles();
-        break;
-      default:
-        this.setState({ category: '' });
-      }
-      this.setState({ category, isLoading: false });
   }
 
   handleFavorite = (id) => {
