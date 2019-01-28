@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './_navigation.scss';
 
 class Navigation extends Component {
   constructor(props) {
