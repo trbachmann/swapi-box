@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmScroll should match the snapshot with all data passed in 1`] = `
+<div
+  className="film-scroll"
+>
+  <p>
+    Turmoil has engulfed the Galactic Republic.
+  </p>
+  <p>
+    The Phantom Menace
+  </p>
+  <p>
+    1999-05-09
+  </p>
+  <p>
+    Choose a Category
+  </p>
+</div>
+`;
