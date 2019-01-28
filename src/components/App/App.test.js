@@ -85,11 +85,11 @@ describe('App', () => {
     let mockCleanedPlanets = [{ name: 'planet1', type: 'planets'}, {name: 'planet2', type: 'planets' }]
     
     beforeEach(() => {
-      API.fetchSWData = jest.fn(() => {{ results: mockPlanets }});
+      API.fetchSWData = jest.fn(() => Promise.resolve({ results: mockPlanets }));
       Helpers.cleanPlanetData = jest.fn(() => mockCleanedPlanets);
     });
 
-    it.skip('should set state with planets if everything is okay with the data', async () => {
+    it('should set state with planets if everything is okay with the data', async () => {
       const wrapper = shallow(<App />);
       await wrapper.instance().getPlanets();
       expect(wrapper.state('planets')).toEqual(mockCleanedPlanets);      
@@ -97,7 +97,18 @@ describe('App', () => {
   });
 
   describe('getVehicle', () => {
-    it.skip('should set state with vehicles is everything is okay with the data', () => {
+    let mockVehicles= [{ name: 'vehicle1', name: 'vehicle2' }]
+    let mockCleanedVehicles = [{ name: 'vehcile1', type: 'vehicles' }, { name: 'vehicle2', type: 'vehciles' }]
+
+    beforeEach(() => {
+      API.fetchSWData = jest.fn(() => Promise.resolve({ results: mockVehicles }));
+      Helpers.cleanVehicleData = jest.fn(() => mockCleanedVehicles);
+    });
+
+    it('should set state with vehicles is everything is okay with the data', async () => {
+      const wrapper = shallow(<App />);
+      await wrapper.instance().getVehicles();
+      expect(wrapper.state('vehicles')).toEqual(mockCleanedVehicles);      
 
     });
   });
